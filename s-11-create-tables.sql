@@ -11,19 +11,19 @@ CREATE TABLE ALMACEN
 	capacidad_almacen    NUMBER NOT NULL ,
 	centro_acopio_id     INTEGER NOT NULL ,
 	empleado_id          INTEGER NOT NULL 
-) ;
+) tablespace almacen_tbs;
 
-
+prompt indice: almacen_id
 
 CREATE UNIQUE INDEX XPKALMACEN ON ALMACEN
-(almacen_id   ASC);
+(almacen_id   ASC) tablespace almacen_idx_tbs;
 
 
 
 ALTER TABLE ALMACEN
 	ADD CONSTRAINT  XPKALMACEN PRIMARY KEY (almacen_id);
 
-
+prompt tabla:almacen_viaje_compra
 
 CREATE TABLE ALMACEN_VIAJE_COMPRA
 (
@@ -32,31 +32,30 @@ CREATE TABLE ALMACEN_VIAJE_COMPRA
 	empleado_id          INTEGER NOT NULL ,
 	viaje_id_RID         INTEGER NOT NULL ,
 	almacen_viaje_compra_id CHAR(18) NOT NULL 
-);
+) tablespace almacen_tbs;
 
-
+prompt indice: almace_tipo_producto
 
 CREATE UNIQUE INDEX XPKALMACEN_TIPO_PRODUCTO ON ALMACEN_VIAJE_COMPRA
-(almacen_viaje_compra_id   ASC);
-
+(almacen_viaje_compra_id   ASC) tablespace almacen_idx_tbs;
 
 
 ALTER TABLE ALMACEN_VIAJE_COMPRA
 	ADD CONSTRAINT  XPKALMACEN_TIPO_PRODUCTO PRIMARY KEY (almacen_viaje_compra_id);
 
-
+prompt tabla: almacen_viaje_venta
 
 CREATE TABLE ALMACEN_VIAJE_VENTA
 (
 	almacen_id           CHAR(18) NOT NULL ,
 	viaje_id_RID         INTEGER NOT NULL ,
 	cantidad_extraida_grano CHAR(18) NOT NULL 
-);
+) tablespace almacen_tbs;
 
-
+prompt indice: almacen_viaje_venta_id
 
 CREATE UNIQUE INDEX XPKALMACEN_VIAJE_VENTA ON ALMACEN_VIAJE_VENTA
-(almacen_id   ASC,viaje_id_RID   ASC);
+(almacen_id   ASC,viaje_id_RID   ASC) tablespace almacen_idx_tbs;
 
 
 
@@ -64,6 +63,8 @@ ALTER TABLE ALMACEN_VIAJE_VENTA
 	ADD CONSTRAINT  XPKALMACEN_VIAJE_VENTA PRIMARY KEY (almacen_id,viaje_id_RID);
 
 
+conn admin_ventas/admin_ventas@pdb_ventas
+prompt tabla: boleta
 
 CREATE TABLE BOLETA
 (
@@ -73,19 +74,20 @@ CREATE TABLE BOLETA
 	importe_total        NUMBER(8,2) NOT NULL ,
 	productor_id         INTEGER NOT NULL ,
 	viaje_id_RID         INTEGER NOT NULL 
-);
+)tablespace ventas_tbs;
 
-
+prompt indice: boleta_id
 
 CREATE UNIQUE INDEX XPKBOLETA ON BOLETA
-(folio   ASC,productor_id   ASC);
+(folio   ASC,productor_id   ASC) tablespace ventas_idx_tbs;
 
 
 
 ALTER TABLE BOLETA
 	ADD CONSTRAINT  XPKBOLETA PRIMARY KEY (folio,productor_id);
 
-
+conn admin_viajes/admin_viajes@pdb_viajes
+prompt tabla: camion
 
 CREATE TABLE CAMION
 (
@@ -94,29 +96,30 @@ CREATE TABLE CAMION
 	tipo_camion          VARCHAR2(10) NOT NULL  CONSTRAINT  ck_TipoCamion CHECK (tipo_camion IN ('TORTON', 'PLATAFORMA', 'CERRADO')),
 	foto                 BLOB NOT NULL ,
 	placas               VARCHAR2(15) NOT NULL 
-);
+) tablespace viajes_big_tbs;
 
-
+prompt indice: camion_id
 
 CREATE UNIQUE INDEX XPKCAMION ON CAMION
-(camion_id   ASC);
+(camion_id   ASC) tablespace ventas_idx_tbs;
 
 
 
 ALTER TABLE CAMION
 	ADD CONSTRAINT  XPKCAMION PRIMARY KEY (camion_id);
 
-
+prompt unique: placas
 
 CREATE UNIQUE INDEX AK1CAMION ON CAMION
-(placas   ASC);
-
+(placas   ASC) tablespace ventas_idx_tbs;
 
 
 ALTER TABLE CAMION
 ADD CONSTRAINT  AK1CAMION UNIQUE (placas);
 
+conn admin_centro/admin_centro@pdb_centro
 
+prompt tabla: centro_acopio
 
 CREATE TABLE CENTRO_ACOPIO
 (
@@ -126,19 +129,21 @@ CREATE TABLE CENTRO_ACOPIO
 	latitud_centro       NUMBER(9,6) NOT NULL ,
 	longitud_centro      NUMBER(9,6) NOT NULL ,
 	empleado_id          INTEGER NOT NULL 
-);
+) tablespace centro_tbs;
 
-
+prompt indice: centro_acopio_id
 
 CREATE UNIQUE INDEX XPKCENTRO_ACOPIO ON CENTRO_ACOPIO
-(centro_acopio_id   ASC);
+(centro_acopio_id   ASC) tablespace centro_idx_tbs;
 
 
 
 ALTER TABLE CENTRO_ACOPIO
 	ADD CONSTRAINT  XPKCENTRO_ACOPIO PRIMARY KEY (centro_acopio_id);
 
+conn admin_ventas/admin_ventas@pdb_ventas
 
+prompt tabla: cliente
 
 CREATE TABLE CLIENTE
 (
@@ -146,37 +151,38 @@ CREATE TABLE CLIENTE
 	rfc_cliente          CHAR(18) NOT NULL ,
 	email                VARCHAR2(50) NOT NULL ,
 	cliente_id           INTEGER NOT NULL 
-);
+) tablespace ventas_multiple_tbs;
 
-
+prompt indice: cliente_id
 
 CREATE UNIQUE INDEX XPKCLIENTES ON CLIENTE
-(cliente_id   ASC);
+(cliente_id   ASC) tablespace ventas_idx_tbs;
 
 
 
 ALTER TABLE CLIENTE
 	ADD CONSTRAINT  XPKCLIENTES PRIMARY KEY (cliente_id);
 
-
+prompt tabla: CUENTA_CLABE
 
 CREATE TABLE CUENTA_CLABE
 (
 	productor_id         INTEGER NOT NULL ,
 	clabe                INTEGER NOT NULL 
-);
+) tablespace ventas_tbs;
 
 
 
 CREATE UNIQUE INDEX XPKCUENTA_CLABE ON CUENTA_CLABE
-(productor_id   ASC,clabe   ASC);
+(productor_id   ASC,clabe   ASC) tablespace ventas_idx_tbs;
 
 
 
 ALTER TABLE CUENTA_CLABE
 	ADD CONSTRAINT  XPKCUENTA_CLABE PRIMARY KEY (productor_id,clabe);
 
-
+conn admin_almacen/admin_almacen@pdb_almacen
+prompt tabla: empleado
 
 CREATE TABLE EMPLEADO
 (
@@ -188,38 +194,39 @@ CREATE TABLE EMPLEADO
 	apellido_mat_empleado VARCHAR2(30) NULL ,
 	rol                  VARCHAR2(25) NOT NULL ,
 	sueldo               NUMBER(8,2) NOT NULL 
-);
+) tablespace almacen_big_tbs;
 
-
+prompt indice: empleado_id
 
 CREATE UNIQUE INDEX XPKEMPLEADO ON EMPLEADO
-(empleado_id   ASC);
+(empleado_id   ASC) tablespace almacen_idx_tbs;
 
 
 
 ALTER TABLE EMPLEADO
 	ADD CONSTRAINT  XPKEMPLEADO PRIMARY KEY (empleado_id);
 
-
+prompt indice: rfc
 
 CREATE UNIQUE INDEX AK1EMPLEADO ON EMPLEADO
-(rfc   ASC);
+(rfc   ASC) tablespace almacen_idx_tbs;
 
 
 
 ALTER TABLE EMPLEADO
 ADD CONSTRAINT  AK1EMPLEADO UNIQUE (rfc);
 
-
+conn admin_viajes/admin_viajes@pdb_viajes
+prompt tabla: estatus_viaje
 
 CREATE TABLE ESTATUS_VIAJE
 (
 	estatus_id           INTEGER NOT NULL ,
 	estatus_viaje        VARCHAR2(25) NOT NULL  CONSTRAINT  ck_estatus_viaje CHECK (estatus_viaje IN ('CARGANDO', 'EN CURSO', 'EN CENTRO ACOPIO', 'DESCARGANDO', 'EN DESTINO CLIENTE', 'EN PAUSA')),
 	descripcion          VARCHAR2(200) NOT NULL 
-);
+) tablespace viajes_tbs;
 
-
+prompt indice: estatus_id
 
 CREATE UNIQUE INDEX XPKESTATUS_VIAJE ON ESTATUS_VIAJE
 (estatus_id   ASC);
@@ -229,7 +236,8 @@ CREATE UNIQUE INDEX XPKESTATUS_VIAJE ON ESTATUS_VIAJE
 ALTER TABLE ESTATUS_VIAJE
 	ADD CONSTRAINT  XPKESTATUS_VIAJE PRIMARY KEY (estatus_id);
 
-
+conn admin_ventas/admin_ventas@pdb_ventas
+prompt tabla: factua
 
 CREATE TABLE FACTURA
 (
@@ -240,19 +248,20 @@ CREATE TABLE FACTURA
 	iva                  NUMBER(2) NOT NULL  CONSTRAINT  ck_iva CHECK (total*0.16),
 	viaje_id_RID         INTEGER NOT NULL ,
 	cliente_id           INTEGER NOT NULL 
-);
+) tablespace ventas_multiple_tbs;
 
-
+prompt indice: factura_id
 
 CREATE UNIQUE INDEX XPKFACTURA ON FACTURA
-(factura_id   ASC);
+(factura_id   ASC) tablespace ventas_idx_tbs;
 
 
 
 ALTER TABLE FACTURA
 	ADD CONSTRAINT  XPKFACTURA PRIMARY KEY (factura_id);
 
-
+conn admin_viajes/admin_viajes@pdb_viajes
+prompt tabla: hist_precio
 
 CREATE TABLE HIST_PRECIO_VENTA_PRODUCTO
 (
@@ -261,38 +270,38 @@ CREATE TABLE HIST_PRECIO_VENTA_PRODUCTO
 	fecha_inicio_precio  DATE NOT NULL ,
 	fecha_fin_precio     DATE NOT NULL ,
 	precio               NUMBER(8,2) NOT NULL 
-);
+) tablespace viajes_big_tbs;
 
-
+prompt indice: precio_id
 
 CREATE UNIQUE INDEX XPKHISTORICO_PRECIO ON HIST_PRECIO_VENTA_PRODUCTO
-(precio_id   ASC);
+(precio_id   ASC) tablespace viajes_idx_tbs;
 
 
 
 ALTER TABLE HIST_PRECIO_VENTA_PRODUCTO
 	ADD CONSTRAINT  XPKHISTORICO_PRECIO PRIMARY KEY (precio_id);
 
-
+prompt tabla: HISTORICO_ESTATUS_VIAJE
 
 CREATE TABLE HISTORICO_ESTATUS_VIAJE
 (
 	viaje_id             INTEGER NOT NULL ,
 	estatus_id           INTEGER NOT NULL ,
 	fecha_estatus_viaje  DATE NOT NULL 
-);
+) tablespace viajes_big_tbs;
 
-
+prompt indice: viaje_status_hist_id
 
 CREATE UNIQUE INDEX XPKHISTORICO_ESTATUS_VIAJE ON HISTORICO_ESTATUS_VIAJE
-(viaje_id   ASC,estatus_id   ASC);
+(viaje_id   ASC,estatus_id   ASC) tablespace viajes_idx_tbs;
 
 
 
 ALTER TABLE HISTORICO_ESTATUS_VIAJE
 	ADD CONSTRAINT  XPKHISTORICO_ESTATUS_VIAJE PRIMARY KEY (viaje_id,estatus_id);
 
-
+prompt tabla: lugar
 
 CREATE TABLE LUGAR
 (
@@ -302,19 +311,19 @@ CREATE TABLE LUGAR
 	direccion_lugar      VARCHAR2(1000) NOT NULL ,
 	latitud_lugar        NUMBER(9,6) NOT NULL ,
 	longitud_lugar       NUMBER(9,6) NOT NULL 
-);
+) tablespace viajes_big_tbs;
 
-
+prompt indice: lugar_id
 
 CREATE UNIQUE INDEX XPKLUGAR ON LUGAR
-(lugar_id   ASC);
+(lugar_id   ASC) tablespace viajes_idx_tbs;
 
 
 
 ALTER TABLE LUGAR
 	ADD CONSTRAINT  XPKLUGAR PRIMARY KEY (lugar_id);
 
-
+prompt tabla: monitoreo
 
 CREATE TABLE MONITOREO
 (
@@ -323,19 +332,20 @@ CREATE TABLE MONITOREO
 	longitud             NUMBER(9,6,) NOT NULL ,
 	latitud              NUMBER(9,6) NOT NULL ,
 	viaje_id             INTEGER NOT NULL 
-);
+) tablespace viajes_big_tbs;
 
-
+prompt indice: monitoreo_id
 
 CREATE UNIQUE INDEX XPKMONITOREO ON MONITOREO
-(monitoreo_id   ASC);
+(monitoreo_id   ASC) tablespace viajes_idx_tbs;
 
 
 
 ALTER TABLE MONITOREO
 	ADD CONSTRAINT  XPKMONITOREO PRIMARY KEY (monitoreo_id);
 
-
+conn admin_ventas/admin_ventas@pdb_ventas
+prompt tabla: productor
 
 CREATE TABLE PRODUCTOR
 (
@@ -345,48 +355,48 @@ CREATE TABLE PRODUCTOR
 	nombre_productor     VARCHAR2(30) NOT NULL ,
 	apellido_pat_productor VARCHAR2(30) NOT NULL ,
 	apellido_mat_productor VARCHAR2(30) NULL 
-);
+) tablespace ventas_multiple_tbs;
 
-
+prompt indice: productor_id
 
 CREATE UNIQUE INDEX XPKPRODUCTOR ON PRODUCTOR
-(productor_id   ASC);
+(productor_id   ASC) tablespace ventas_idx_tbs;
 
 
 
 ALTER TABLE PRODUCTOR
 	ADD CONSTRAINT  XPKPRODUCTOR PRIMARY KEY (productor_id);
 
-
+prompt indice: productor rfc
 
 CREATE UNIQUE INDEX AK1PRODUCTOR ON PRODUCTOR
-(rfc   ASC);
+(rfc   ASC) tablespace ventas_idx_tbs;
 
 
 
 ALTER TABLE PRODUCTOR
 ADD CONSTRAINT  AK1PRODUCTOR UNIQUE (rfc);
 
-
+conn admin_viajes/admin_viajes@pdb_viajes
 
 CREATE TABLE TIPO_PRODUCTO
 (
 	tipo_producto_id     INTEGER NOT NULL ,
 	precio_actual        NUMBER(8,2) NOT NULL ,
 	tipo_producto        VARCHAR2(2) NOT NULL  CONSTRAINT  ckTipo_producto CHECK (tipo_producto IN ('MAIZ', 'SORGO', 'FRIJOL', 'SOYA'))
-);
+) tablespace viajes_tbs;
 
-
+prompt indice: tipo_producto
 
 CREATE UNIQUE INDEX XPKTIPO_PRODUCTO ON TIPO_PRODUCTO
-(tipo_producto_id   ASC);
+(tipo_producto_id   ASC) tablespace viajes_idx_tbs;
 
 
 
 ALTER TABLE TIPO_PRODUCTO
 	ADD CONSTRAINT  XPKTIPO_PRODUCTO PRIMARY KEY (tipo_producto_id);
 
-
+prompt tabla: viaje
 
 CREATE TABLE VIAJE
 (
@@ -402,7 +412,7 @@ CREATE TABLE VIAJE
 	estatus_id           INTEGER NOT NULL ,
 	camion_id            INTEGER NOT NULL ,
 	empleado_chofer_id_RID INTEGER NOT NULL 
-);
+) tablespace viajes_big_tbs;
 
 
 
@@ -414,38 +424,38 @@ CREATE UNIQUE INDEX XPKVIAJE ON VIAJE
 ALTER TABLE VIAJE
 	ADD CONSTRAINT  XPKVIAJE PRIMARY KEY (viaje_id);
 
-
+prompt tabla: viaje_compra
 
 CREATE TABLE VIAJE_COMPRA
 (
 	viaje_id_RID         INTEGER NOT NULL ,
 	lugar_origen_id      INTEGER NOT NULL ,
 	centro_acopio_destino_id INTEGER NOT NULL 
-);
+) tablespace viajes_big_tbs;
 
-
+prompt indice: viaje_compra_id
 
 CREATE UNIQUE INDEX XPKVIAJE_COMPRA ON VIAJE_COMPRA
-(viaje_id_RID   ASC);
+(viaje_id_RID   ASC) tablespace viajes_idx_tbs;
 
 
 
 ALTER TABLE VIAJE_COMPRA
 	ADD CONSTRAINT  XPKVIAJE_COMPRA PRIMARY KEY (viaje_id_RID);
 
-
+prompt tabla: viaje_venta
 
 CREATE TABLE VIAJE_VENTA
 (
 	viaje_id_RID         INTEGER NOT NULL ,
 	lugar_destino_id     INTEGER NOT NULL ,
 	centro_acopio_origen_id INTEGER NOT NULL 
-);
+) tablespace viajes_big_tbs;
 
-
+prompt indice: viaje_venta_id
 
 CREATE UNIQUE INDEX XPKVIAJE_VENTA ON VIAJE_VENTA
-(viaje_id_RID   ASC);
+(viaje_id_RID   ASC) tablespace viajes_idx_tbs;
 
 
 
@@ -585,10 +595,10 @@ ALTER TABLE VIAJE_VENTA
 
 
 ALTER TABLE VIAJE_VENTA
-	ADD (CONSTRAINT R_37 FOREIGN KEY (lugar_destino_id) REFERENCES LUGAR (lugar_id));
+	ADD (CONSTRAINT R_38 FOREIGN KEY (lugar_destino_id) REFERENCES LUGAR (lugar_id));
 
 
 
 ALTER TABLE VIAJE_VENTA
-	ADD (CONSTRAINT R_39 FOREIGN KEY (centro_acopio_origen_id) REFERENCES CENTRO_ACOPIO (centro_acopio_id));
+	ADD (CONSTRAINT R_41 FOREIGN KEY (centro_acopio_origen_id) REFERENCES CENTRO_ACOPIO (centro_acopio_id));
 
