@@ -383,7 +383,7 @@ CREATE TABLE TIPO_PRODUCTO
 (
 	tipo_producto_id     INTEGER NOT NULL ,
 	precio_actual        NUMBER(8,2) NOT NULL ,
-	tipo_producto        VARCHAR2(2) NOT NULL  CONSTRAINT  ckTipo_producto CHECK (tipo_producto IN ('MAIZ', 'SORGO', 'FRIJOL', 'SOYA'))
+	tipo_producto        VARCHAR2(6) NOT NULL  CONSTRAINT  ckTipo_producto CHECK (tipo_producto IN ('MAIZ', 'SORGO', 'FRIJOL', 'SOYA'))
 ) tablespace viajes_tbs;
 
 prompt indice: tipo_producto
