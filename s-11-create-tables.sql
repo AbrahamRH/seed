@@ -92,7 +92,7 @@ prompt tabla: camion
 CREATE TABLE CAMION
 (
 	camion_id            INTEGER NOT NULL ,
-	capacidad            NUMBER(7,2,) NOT NULL ,
+	capacidad            NUMBER(7,2) NOT NULL ,
 	tipo_camion          VARCHAR2(10) NOT NULL  CONSTRAINT  ck_TipoCamion CHECK (tipo_camion IN ('TORTON', 'PLATAFORMA', 'CERRADO')),
 	foto                 BLOB NOT NULL ,
 	placas               VARCHAR2(15) NOT NULL 
@@ -101,7 +101,7 @@ CREATE TABLE CAMION
 prompt indice: camion_id
 
 CREATE UNIQUE INDEX XPKCAMION ON CAMION
-(camion_id   ASC) tablespace ventas_idx_tbs;
+(camion_id   ASC) tablespace viajes_idx_tbs;
 
 
 
@@ -245,7 +245,7 @@ CREATE TABLE FACTURA
 	domicilio_factura    VARCHAR2(1000) NOT NULL ,
 	precio_venta_kg      NUMBER(8,2) NOT NULL ,
 	total                NUMBER(8,2) NOT NULL ,
-	iva                  NUMBER(2) NOT NULL  CONSTRAINT  ck_iva CHECK (total*0.16),
+	iva                  as (total*0.16),
 	viaje_id_RID         INTEGER NOT NULL ,
 	cliente_id           INTEGER NOT NULL 
 ) tablespace ventas_multiple_tbs;
@@ -328,8 +328,8 @@ prompt tabla: monitoreo
 CREATE TABLE MONITOREO
 (
 	monitoreo_id         INTEGER NOT NULL ,
-	fecha_hora           DATE NOT NULL  CONSTRAINT  ck_fechaHora CHECK (sysdate),
-	longitud             NUMBER(9,6,) NOT NULL ,
+	fecha_hora           DATE DEFAULT sysdate,
+	longitud             NUMBER(9,6) NOT NULL ,
 	latitud              NUMBER(9,6) NOT NULL ,
 	viaje_id             INTEGER NOT NULL 
 ) tablespace viajes_big_tbs;
@@ -404,9 +404,9 @@ CREATE TABLE VIAJE
 	fecha_salida         DATE NOT NULL ,
 	fecha_llegada        DATE NOT NULL ,
 	fecha_estatus        DATE NOT NULL ,
-	peso_bruto           NUMBER(7,2) NOT NULL  CONSTRAINT  ck_peso_bruto CHECK (peso_tara+peso_neto),
 	peso_tara            NUMBER(7,2) NOT NULL ,
 	peso_neto            NUMBER(7,2) NOT NULL ,
+	peso_bruto           as (peso_tara+peso_neto),
 	tipo_viaje           CHAR NOT NULL ,
 	tipo_producto_id     INTEGER NOT NULL ,
 	estatus_id           INTEGER NOT NULL ,
@@ -457,16 +457,7 @@ prompt indice: viaje_venta_id
 CREATE UNIQUE INDEX XPKVIAJE_VENTA ON VIAJE_VENTA
 (viaje_id_RID   ASC) tablespace viajes_idx_tbs;
 
-
-
-ALTER TABLE VIAJE_VENTA
-	ADD CONSTRAINT  XPKVIAJE_VENTA PRIMARY KEY (viaje_id_RID);
-
-
-
-ALTER TABLE ALMACEN
-	ADD (CONSTRAINT R_22 FOREIGN KEY (centro_acopio_id) REFERENCES CENTRO_ACOPIO (centro_acopio_id));
-
+conn admin_viajes/admin_viajes@pdb_viajes
 
 
 ALTER TABLE ALMACEN
@@ -483,35 +474,16 @@ ALTER TABLE ALMACEN_VIAJE_COMPRA
 	ADD (CONSTRAINT R_49 FOREIGN KEY (empleado_id) REFERENCES EMPLEADO (empleado_id));
 
 
-
-ALTER TABLE ALMACEN_VIAJE_COMPRA
-	ADD (CONSTRAINT R_52 FOREIGN KEY (viaje_id_RID) REFERENCES VIAJE_COMPRA (viaje_id_RID));
-
-
-
 ALTER TABLE ALMACEN_VIAJE_VENTA
 	ADD (CONSTRAINT R_40 FOREIGN KEY (almacen_id) REFERENCES ALMACEN (almacen_id));
 
+ALTER TABLE EMPLEADO
+	ADD (CONSTRAINT jefe FOREIGN KEY (jefe) REFERENCES EMPLEADO (empleado_id) ON DELETE SET NULL);
 
-
-ALTER TABLE ALMACEN_VIAJE_VENTA
-	ADD (CONSTRAINT R_42 FOREIGN KEY (viaje_id_RID) REFERENCES VIAJE_VENTA (viaje_id_RID));
-
-
+conn admin_ventas/admin_ventas@pdb_ventas
 
 ALTER TABLE BOLETA
 	ADD (CONSTRAINT R_11 FOREIGN KEY (productor_id) REFERENCES PRODUCTOR (productor_id));
-
-
-
-ALTER TABLE BOLETA
-	ADD (CONSTRAINT R_50 FOREIGN KEY (viaje_id_RID) REFERENCES VIAJE (viaje_id));
-
-
-
-ALTER TABLE CENTRO_ACOPIO
-	ADD (CONSTRAINT R_29 FOREIGN KEY (empleado_id) REFERENCES EMPLEADO (empleado_id));
-
 
 
 ALTER TABLE CUENTA_CLABE
@@ -519,20 +491,12 @@ ALTER TABLE CUENTA_CLABE
 
 
 
-ALTER TABLE EMPLEADO
-	ADD (CONSTRAINT jefe FOREIGN KEY (jefe) REFERENCES EMPLEADO (empleado_id) ON DELETE SET NULL);
-
-
-
-ALTER TABLE FACTURA
-	ADD (CONSTRAINT R_44 FOREIGN KEY (viaje_id_RID) REFERENCES VIAJE_VENTA (viaje_id_RID));
-
-
-
 ALTER TABLE FACTURA
 	ADD (CONSTRAINT R_47 FOREIGN KEY (cliente_id) REFERENCES CLIENTE (cliente_id));
 
 
+
+conn admin_viajes/admin_viajes@pdb_viajes
 
 ALTER TABLE HIST_PRECIO_VENTA_PRODUCTO
 	ADD (CONSTRAINT R_2 FOREIGN KEY (tipo_producto_id) REFERENCES TIPO_PRODUCTO (tipo_producto_id));
@@ -569,36 +533,11 @@ ALTER TABLE VIAJE
 
 
 
-ALTER TABLE VIAJE
-	ADD (CONSTRAINT R_34 FOREIGN KEY (empleado_chofer_id_RID) REFERENCES EMPLEADO (empleado_id));
-
-
-
-ALTER TABLE VIAJE_COMPRA
-	ADD (FOREIGN KEY (viaje_id_RID) REFERENCES VIAJE(viaje_id) ON DELETE CASCADE);
-
-
-
 ALTER TABLE VIAJE_COMPRA
 	ADD (CONSTRAINT R_30 FOREIGN KEY (lugar_origen_id) REFERENCES LUGAR (lugar_id));
 
 
 
-ALTER TABLE VIAJE_COMPRA
-	ADD (CONSTRAINT R_32 FOREIGN KEY (centro_acopio_destino_id) REFERENCES CENTRO_ACOPIO (centro_acopio_id));
-
-
-
-ALTER TABLE VIAJE_VENTA
-	ADD (FOREIGN KEY (viaje_id_RID) REFERENCES VIAJE(viaje_id) ON DELETE CASCADE);
-
-
-
 ALTER TABLE VIAJE_VENTA
 	ADD (CONSTRAINT R_38 FOREIGN KEY (lugar_destino_id) REFERENCES LUGAR (lugar_id));
-
-
-
-ALTER TABLE VIAJE_VENTA
-	ADD (CONSTRAINT R_41 FOREIGN KEY (centro_acopio_origen_id) REFERENCES CENTRO_ACOPIO (centro_acopio_id));
 
