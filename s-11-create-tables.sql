@@ -94,7 +94,7 @@ CREATE TABLE CAMION
 	camion_id            INTEGER NOT NULL ,
 	capacidad            NUMBER(7,2) NOT NULL ,
 	tipo_camion          VARCHAR2(10) NOT NULL  CONSTRAINT  ck_TipoCamion CHECK (tipo_camion IN ('TORTON', 'PLATAFORMA', 'CERRADO')),
-	foto                 BLOB NOT NULL ,
+	foto                 BLOB NULL ,
 	placas               VARCHAR2(15) NOT NULL 
 ) tablespace viajes_big_tbs;
 
@@ -309,8 +309,8 @@ CREATE TABLE LUGAR
 	nombre_lugar         VARCHAR2(30) NOT NULL ,
 	descripcion_lugar    VARCHAR2(200) NOT NULL ,
 	direccion_lugar      VARCHAR2(1000) NOT NULL ,
-	latitud_lugar        NUMBER(9,6) NOT NULL ,
-	longitud_lugar       NUMBER(9,6) NOT NULL 
+	latitud_lugar        NUMBER(10,5) NOT NULL ,
+	longitud_lugar       NUMBER(10,5) NOT NULL 
 ) tablespace viajes_big_tbs;
 
 prompt indice: lugar_id
@@ -328,9 +328,9 @@ prompt tabla: monitoreo
 CREATE TABLE MONITOREO
 (
 	monitoreo_id         INTEGER NOT NULL ,
-	fecha_hora           DATE DEFAULT sysdate,
-	longitud             NUMBER(9,6) NOT NULL ,
-	latitud              NUMBER(9,6) NOT NULL ,
+	fecha_hora           DATE NOT NULL ,
+	longitud             NUMBER(10,5) NOT NULL ,
+	latitud              NUMBER(10,5) NOT NULL ,
 	viaje_id             INTEGER NOT NULL 
 ) tablespace viajes_big_tbs;
 
