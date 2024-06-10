@@ -5,7 +5,7 @@ Prompt abriendo pdbs
 alter pluggable database pdb_ventas open;
 alter pluggable database pdb_almacen open;
 alter pluggable database pdb_viajes open;
-alter pluggable database centro_acopio_conn open;
+alter pluggable database centro_acopio_con open;
 
 alter session set container=centro_acopio_con;
 alter pluggable database pdb_centro open;
