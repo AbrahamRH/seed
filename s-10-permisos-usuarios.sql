@@ -12,6 +12,7 @@ grant create session, create table, create procedure, create sequence to admin_v
 alter user admin_viajes quota unlimited on viajes_idx_tbs;
 alter user admin_viajes quota unlimited on viajes_big_tbs;
 alter user admin_viajes quota unlimited on viajes_tbs;
+alter user admin_viajes default tablespace viajes_tbs;
 
 prompt otorgando permisos a  usuario almacen
 connect sys/system2@pdb_almacen as sysdba
@@ -19,6 +20,7 @@ grant create session, create table, create procedure, create sequence to admin_a
 alter user admin_almacen quota unlimited on almacen_idx_tbs;
 alter user admin_almacen quota unlimited on almacen_big_tbs;
 alter user admin_almacen quota unlimited on almacen_tbs;
+alter user admin_almacen default tablespace almacen_tbs;
 
 prompt otorgando permisos a usuario ventas
 connect sys/system2@pdb_ventas as sysdba
@@ -27,8 +29,4 @@ alter user admin_ventas quota unlimited on ventas_idx_tbs;
 alter user admin_ventas quota unlimited on ventas_multiple_tbs;
 alter user admin_ventas quota unlimited on ventas_tbs;
 
-prompt otorgando permisos a usuario centro
-connect sys/system2@pdb_centro as sysdba
-grant create session, create table, create procedure, create sequence to admin_centro;
-alter user admin_centro quota unlimited on centro_idx_tbs;
-alter user admin_centro quota unlimited on centro_tbs;
+exit

@@ -37,6 +37,8 @@ mkdir -p d07/app/oracle/oradata/${ORACLE_SID^^}
 mkdir -p d08/app/oracle/oradata/${ORACLE_SID^^}
 mkdir -p d09/app/oracle/oradata/${ORACLE_SID^^}
 mkdir -p d10/app/oracle/oradata/${ORACLE_SID^^}/app
+mkdir -p d10/app/oracle/oradata/${ORACLE_SID^^}/viajes
+mkdir -p d10/app/oracle/oradata/${ORACLE_SID^^}/almacen
 mkdir -p d11/app/oracle/oradata/${ORACLE_SID^^}
 
 echo "cambiando de dueño a los discos"

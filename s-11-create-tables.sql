@@ -117,29 +117,6 @@ CREATE UNIQUE INDEX AK1CAMION ON CAMION
 ALTER TABLE CAMION
 ADD CONSTRAINT  AK1CAMION UNIQUE (placas);
 
-conn admin_centro/admin_centro@pdb_centro
-
-prompt tabla: centro_acopio
-
-CREATE TABLE CENTRO_ACOPIO
-(
-	centro_acopio_id     INTEGER NOT NULL ,
-	nombre_centro        VARCHAR2(30) NOT NULL ,
-	direccion_centro     VARCHAR2(1000) NOT NULL ,
-	latitud_centro       NUMBER(9,6) NOT NULL ,
-	longitud_centro      NUMBER(9,6) NOT NULL ,
-	empleado_id          INTEGER NOT NULL 
-) tablespace centro_tbs;
-
-prompt indice: centro_acopio_id
-
-CREATE UNIQUE INDEX XPKCENTRO_ACOPIO ON CENTRO_ACOPIO
-(centro_acopio_id   ASC) tablespace centro_idx_tbs;
-
-
-
-ALTER TABLE CENTRO_ACOPIO
-	ADD CONSTRAINT  XPKCENTRO_ACOPIO PRIMARY KEY (centro_acopio_id);
 
 conn admin_ventas/admin_ventas@pdb_ventas
 
@@ -457,7 +434,7 @@ prompt indice: viaje_venta_id
 CREATE UNIQUE INDEX XPKVIAJE_VENTA ON VIAJE_VENTA
 (viaje_id_RID   ASC) tablespace viajes_idx_tbs;
 
-conn admin_viajes/admin_viajes@pdb_viajes
+conn admin_almacen/admin_almacen@pdb_almacen
 
 
 ALTER TABLE ALMACEN

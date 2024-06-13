@@ -7,11 +7,13 @@ alter pluggable database pdb_almacen open;
 alter pluggable database pdb_viajes open;
 alter pluggable database centro_acopio_con open;
 
-alter session set container=centro_acopio_con;
-alter pluggable database pdb_centro open;
-
 Prompt creando tablespaces de pdb_viajes
 alter session set container=pdb_viajes;
+create tablespace viajes_tbs
+datafile '/unam-diplomado-bd/seed/d07/app/oracle/oradata/SEED/viajes_tbs.dbf' size 500m
+extent management local autoallocate
+segment space management auto;
+
 create tablespace viajes_idx_tbs
 datafile '/unam-diplomado-bd/seed/d07/app/oracle/oradata/SEED/idx_viajes_tbs.dbf' size 10m
 extent management local autoallocate
@@ -24,6 +26,11 @@ segment space management auto;
 
 Prompt creando tablespaces de pdb_almacen
 alter session set container=pdb_almacen;
+
+create tablespace almacen_tbs
+datafile '/unam-diplomado-bd/seed/d08/app/oracle/oradata/SEED/almacen_tbs.dbf' size 500m
+extent management local autoallocate
+segment space management auto;
 
 create tablespace almacen_idx_tbs
 datafile '/unam-diplomado-bd/seed/d08/app/oracle/oradata/SEED/idx_almacen_tbs.dbf' size 10m
@@ -51,18 +58,4 @@ datafile '/unam-diplomado-bd/seed/d09/app/oracle/oradata/SEED/ventas_multiple_tb
 extent management local autoallocate
 segment space management auto;
 
-
-Prompt creando tablespaces para pdb_centro
-alter session set container=pdb_centro;
-
-create tablespace centro_idx_tbs
-datafile '/unam-diplomado-bd/seed/d10/app/oracle/oradata/SEED/idx_centro_tbs.dbf' size 10m
-extent management local autoallocate
-segment space management auto;
-
-create tablespace centro_tbs
-    datafile '/unam-diplomado-bd/seed/d10/app/oracle/oradata/SEED/centro_tbs.dbf' size 10m
-extent management local autoallocate
-segment space management auto;
-
-conn sys/system2 as sysdba
+exit
