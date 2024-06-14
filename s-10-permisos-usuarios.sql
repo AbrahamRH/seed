@@ -29,4 +29,4 @@ alter user admin_ventas quota unlimited on ventas_idx_tbs;
 alter user admin_ventas quota unlimited on ventas_multiple_tbs;
 alter user admin_ventas quota unlimited on ventas_tbs;
 
-exit
+disconnect

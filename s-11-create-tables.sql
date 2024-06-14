@@ -6,7 +6,7 @@ prompt Tabla: almacen
 
 CREATE TABLE ALMACEN
 (
-	almacen_id           CHAR(18) NOT NULL ,
+	almacen_id           INTEGER NOT NULL ,
 	tipo_almacen         VARCHAR2(30) NOT NULL  CONSTRAINT  ck_tipo_almacen CHECK (tipo_almacen IN ('bodega', 'silo', 'patio')),
 	capacidad_almacen    NUMBER NOT NULL ,
 	centro_acopio_id     INTEGER NOT NULL ,
@@ -31,7 +31,7 @@ CREATE TABLE ALMACEN_VIAJE_COMPRA
 	cantidad_almacenada  NUMBER(7,2) NOT NULL ,
 	empleado_id          INTEGER NOT NULL ,
 	viaje_id_RID         INTEGER NOT NULL ,
-	almacen_viaje_compra_id CHAR(18) NOT NULL 
+	almacen_viaje_compra_id INTEGER NOT NULL 
 ) tablespace almacen_tbs;
 
 prompt indice: almace_tipo_producto
@@ -47,9 +47,9 @@ prompt tabla: almacen_viaje_venta
 
 CREATE TABLE ALMACEN_VIAJE_VENTA
 (
-	almacen_id           CHAR(18) NOT NULL ,
+	almacen_id           INTEGER NOT NULL ,
 	viaje_id_RID         INTEGER NOT NULL ,
-	cantidad_extraida_grano CHAR(18) NOT NULL 
+	cantidad_extraida_grano NUMBER(7,2) NOT NULL 
 ) tablespace almacen_tbs;
 
 prompt indice: almacen_viaje_venta_id
@@ -111,7 +111,7 @@ ALTER TABLE CAMION
 prompt unique: placas
 
 CREATE UNIQUE INDEX AK1CAMION ON CAMION
-(placas   ASC) tablespace ventas_idx_tbs;
+(placas   ASC) tablespace viajes_idx_tbs;
 
 
 ALTER TABLE CAMION

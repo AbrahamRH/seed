@@ -1,0 +1,3 @@
+drop tablespace almacen_tbs
+including contents
+/

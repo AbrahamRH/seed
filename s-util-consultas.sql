@@ -26,3 +26,11 @@ select group#, type, member from v$logfile;
 col name format a20
 select * from v$recovery_file_dest;
 SELECT * FROM V$RECOVERY_AREA_USAGE;
+
+
+-- Consulta el nombre del app container
+SELECT app_name,
+       app_version,
+       app_status
+FROM   dba_applications
+WHERE  app_name = 'CENTRO_ACOPIO_APP';
