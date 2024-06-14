@@ -22,6 +22,9 @@ select p.pdb_id, p.pdb_name, d.file_id, d.tablespace_name, d.file_name
 col member format a80
 select group#, type, member from v$logfile;
 
+-- Consulta informacion de archive logs
+select name, dest_id,  blocks from v$archived_log;
+
 -- Uso de la FRA
 col name format a20
 select * from v$recovery_file_dest;
@@ -34,3 +37,14 @@ SELECT app_name,
        app_status
 FROM   dba_applications
 WHERE  app_name = 'CENTRO_ACOPIO_APP';
+
+-- Consulta backups
+set linesize 500
+col backup_size for a20
+SELECT input_type "backup_type", status,
+    output_bytes_display "backup_size",
+    output_device_type "output_device"
+from V$RMAN_BACKUP_JOB_DETAILS
+where start_time > sysdate-15
+and input_type != 'ARCHIVELOG'
+order by end_time desc;
