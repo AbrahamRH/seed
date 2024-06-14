@@ -21,6 +21,7 @@ select p.pdb_id, p.pdb_name, d.file_id, d.tablespace_name, d.file_name
 -- Consulta de la informacion para los redologs
 col member format a80
 select group#, type, member from v$logfile;
+select * from v$log;
 
 -- Consulta informacion de archive logs
 select name, dest_id,  blocks from v$archived_log;
@@ -48,3 +49,19 @@ from V$RMAN_BACKUP_JOB_DETAILS
 where start_time > sysdate-15
 and input_type != 'ARCHIVELOG'
 order by end_time desc;
+
+
+-- Tamaño de la base de datos, espacio usado y espacio libre 
+SELECT ROUND(SUM(USED.BYTES) / 1024 / 1024 / 1024 ) "DATABASE SIZE IN GB",
+        ROUND(SUM(USED.BYTES) / 1024 / 1024 / 1024 ) - ROUND(FREE.P / 1024 / 1024 / 1024) "USED SPACE IN GB",
+        ROUND(FREE.P / 1024 / 1024 / 1024) "FREE SPACE IN GB"
+FROM (
+      SELECT BYTES FROM V$DATAFILE
+      UNION ALL
+      SELECT BYTES FROM V$TEMPFILE
+      UNION ALL
+      SELECT BYTES FROM V$LOG
+      ) USED,
+      (SELECT SUM(BYTES) AS P
+      FROM DBA_FREE_SPACE) FREE 
+GROUP BY FREE.P;
