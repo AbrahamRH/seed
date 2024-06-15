@@ -3,7 +3,7 @@ connect sys/system2@seed as sysdba
 Prompt creando usuario admin root
 
 create user c##cdb_admin identified by cdb_admin container=all;
-grant create session, create table, create procedure, create sequence to admin_viajes;
+grant sysdba to c##cdb_admin;
 
 prompt otorgando permisos a usuario viajes
 connect sys/system2@pdb_viajes as sysdba
