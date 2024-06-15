@@ -1,0 +1,15 @@
+INSERT INTO CAMION (camion_id, capacidad, tipo_camion, foto, placas) VALUES (1, 17.01, 'tipo2', NULL, 'ABC6568XYZ');
+INSERT INTO CAMION (camion_id, capacidad, tipo_camion, foto, placas) VALUES (2, 22.89, 'tipo3', NULL, 'ABC6499XYZ');
+INSERT INTO CAMION (camion_id, capacidad, tipo_camion, foto, placas) VALUES (3, 19.98, 'tipo3', NULL, 'ABC4730XYZ');
+INSERT INTO CAMION (camion_id, capacidad, tipo_camion, foto, placas) VALUES (4, 49.9, 'tipo3', NULL, 'ABC3254XYZ');
+INSERT INTO CAMION (camion_id, capacidad, tipo_camion, foto, placas) VALUES (5, 45.28, 'tipo1', NULL, 'ABC3141XYZ');
+INSERT INTO CAMION (camion_id, capacidad, tipo_camion, foto, placas) VALUES (6, 36.9, 'tipo3', NULL, 'ABC9225XYZ');
+INSERT INTO CAMION (camion_id, capacidad, tipo_camion, foto, placas) VALUES (7, 11.05, 'tipo2', NULL, 'ABC1684XYZ');
+INSERT INTO CAMION (camion_id, capacidad, tipo_camion, foto, placas) VALUES (8, 40.55, 'tipo2', NULL, 'ABC7800XYZ');
+INSERT INTO CAMION (camion_id, capacidad, tipo_camion, foto, placas) VALUES (9, 15.05, 'tipo1', NULL, 'ABC2476XYZ');
+INSERT INTO CAMION (camion_id, capacidad, tipo_camion, foto, placas) VALUES (10, 31.45, 'tipo3', NULL, 'ABC6654XYZ');
+INSERT INTO CAMION (camion_id, capacidad, tipo_camion, foto, placas) VALUES (11, 34.57, 'tipo3', NULL, 'ABC2480XYZ');
+INSERT INTO CAMION (camion_id, capacidad, tipo_camion, foto, placas) VALUES (12, 49.89, 'tipo2', NULL, 'ABC5454XYZ');
+INSERT INTO CAMION (camion_id, capacidad, tipo_camion, foto, placas) VALUES (13, 29.16, 'tipo3', NULL, 'ABC7952XYZ');
+INSERT INTO CAMION (camion_id, capacidad, tipo_camion, foto, placas) VALUES (14, 30.27, 'tipo2', NULL, 'ABC1827XYZ');
+INSERT INTO CAMION (camion_id, capacidad, tipo_camion, foto, placas) VALUES (15, 49.59, 'tipo2', NULL, 'ABC5139XYZ');
