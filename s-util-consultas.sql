@@ -47,7 +47,6 @@ SELECT input_type "backup_type", status,
     output_device_type "output_device"
 from V$RMAN_BACKUP_JOB_DETAILS
 where start_time > sysdate-15
-and input_type != 'ARCHIVELOG'
 order by end_time desc;
 
 

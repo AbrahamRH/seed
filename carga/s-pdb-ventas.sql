@@ -1,3 +1,92 @@
+PROMPT productor
+
+INSERT INTO PRODUCTOR (productor_id, rfc, direccion, nombre_productor, apellido_pat_productor, apellido_mat_productor)
+VALUES 
+(1, 'RFC00000001', 'Calle Falsa 123, Guasave, Sinaloa, México', 'Juan', 'Pérez', 'García');
+INSERT INTO PRODUCTOR (productor_id, rfc, direccion, nombre_productor, apellido_pat_productor, apellido_mat_productor)
+VALUES 
+(2, 'RFC00000002', 'Avenida Siempre Viva 456, Culiacán, Sinaloa, México', 'María', 'López', 'Martínez');
+INSERT INTO PRODUCTOR (productor_id, rfc, direccion, nombre_productor, apellido_pat_productor, apellido_mat_productor)
+VALUES 
+(3, 'RFC00000003', 'Boulevard del Sol 789, Ahome, Sinaloa, México', 'Carlos', 'Hernández', 'Sánchez');
+INSERT INTO PRODUCTOR (productor_id, rfc, direccion, nombre_productor, apellido_pat_productor, apellido_mat_productor)
+VALUES 
+(4, 'RFC00000004', 'Plaza Central 101, León, Guanajuato, México', 'Laura', 'Rodríguez', 'Gómez');
+INSERT INTO PRODUCTOR (productor_id, rfc, direccion, nombre_productor, apellido_pat_productor, apellido_mat_productor)
+VALUES 
+(5, 'RFC00000005', 'Camino Real 202, Irapuato, Guanajuato, México', 'Luis', 'Fernández', 'Díaz');
+INSERT INTO PRODUCTOR (productor_id, rfc, direccion, nombre_productor, apellido_pat_productor, apellido_mat_productor)
+VALUES 
+(6, 'RFC00000006', 'Callejón de la Luna 303, Celaya, Guanajuato, México', 'Ana', 'Martínez', 'Vázquez');
+INSERT INTO PRODUCTOR (productor_id, rfc, direccion, nombre_productor, apellido_pat_productor, apellido_mat_productor)
+VALUES 
+(7, 'RFC00000007', 'Sendero del Mar 404, Obregón, Sonora, México', 'Pedro', 'González', 'Ramírez');
+INSERT INTO PRODUCTOR (productor_id, rfc, direccion, nombre_productor, apellido_pat_productor, apellido_mat_productor)
+VALUES 
+(8, 'RFC00000008', 'Autopista del Norte 505, Los Mochis, Sinaloa, México', 'Sofía', 'Morales', 'Torres');
+INSERT INTO PRODUCTOR (productor_id, rfc, direccion, nombre_productor, apellido_pat_productor, apellido_mat_productor)
+VALUES 
+(9, 'RFC00000009', 'Calle de los Pinos 606, Huamantla, Tlaxcala, México', 'Miguel', 'Gutiérrez', 'Flores');
+INSERT INTO PRODUCTOR (productor_id, rfc, direccion, nombre_productor, apellido_pat_productor, apellido_mat_productor)
+VALUES 
+(10, 'RFC00000010', 'Avenida de los Andes 707, Cuauhtémoc, Chihuahua, México', 'Elena', 'Jiménez', 'Rojas');
+
+PROMPT cuenta_clabe
+
+INSERT INTO CUENTA_CLABE (productor_id, clabe)
+VALUES 
+(1, 123456789012345678);
+INSERT INTO CUENTA_CLABE (productor_id, clabe)
+VALUES 
+(2, 234567890123456789);
+INSERT INTO CUENTA_CLABE (productor_id, clabe)
+VALUES 
+(3, 345678901234567890);
+INSERT INTO CUENTA_CLABE (productor_id, clabe)
+VALUES 
+(4, 456789012345678901);
+INSERT INTO CUENTA_CLABE (productor_id, clabe)
+VALUES 
+(5, 567890123456789012);
+INSERT INTO CUENTA_CLABE (productor_id, clabe)
+VALUES 
+(6, 678901234567890123);
+INSERT INTO CUENTA_CLABE (productor_id, clabe)
+VALUES 
+(7, 789012345678901234);
+INSERT INTO CUENTA_CLABE (productor_id, clabe)
+VALUES 
+(8, 890123456789012345);
+INSERT INTO CUENTA_CLABE (productor_id, clabe)
+VALUES 
+(9, 901234567890123456);
+INSERT INTO CUENTA_CLABE (productor_id, clabe)
+VALUES 
+(10, 123450987654321098);
+
+prompt cliente
+INSERT INTO CLIENTE (cliente_id, nombre_cliente, rfc_cliente, email) VALUES (1, 'Laura Cruz García', 'CRGLA710323ABC', 'laura.cruz78@mockemail.com');
+INSERT INTO CLIENTE (cliente_id, nombre_cliente, rfc_cliente, email) VALUES (2, 'María López Sánchez', 'LOSMA840615XYZ', 'maria.lopez34@mockemail.com');
+INSERT INTO CLIENTE (cliente_id, nombre_cliente, rfc_cliente, email) VALUES (3, 'Pedro Morales Pérez', 'MOPEP800812DEF', 'pedro.morales47@mockemail.com');
+INSERT INTO CLIENTE (cliente_id, nombre_cliente, rfc_cliente, email) VALUES (4, 'Ana García Ramírez', 'GARAAN790104GHI', 'ana.garcia59@mockemail.com');
+INSERT INTO CLIENTE (cliente_id, nombre_cliente, rfc_cliente, email) VALUES (5, 'Luis Rodríguez Cruz', 'ROCRLU850916JKL', 'luis.rodriguez66@mockemail.com');
+INSERT INTO CLIENTE (cliente_id, nombre_cliente, rfc_cliente, email) VALUES (6, 'Carlos Martínez González', 'MAGOCA750214MNO', 'carlos.martinez91@mockemail.com');
+INSERT INTO CLIENTE (cliente_id, nombre_cliente, rfc_cliente, email) VALUES (7, 'Jorge Sánchez López', 'SALOJO880420PQR', 'jorge.sanchez23@mockemail.com');
+INSERT INTO CLIENTE (cliente_id, nombre_cliente, rfc_cliente, email) VALUES (8, 'Lucía Ramírez Pérez', 'RAPEEL790312STU', 'lucia.ramirez82@mockemail.com');
+INSERT INTO CLIENTE (cliente_id, nombre_cliente, rfc_cliente, email) VALUES (9, 'Marta González Cruz', 'GOCOMA760618VWX', 'marta.gonzalez74@mockemail.com');
+INSERT INTO CLIENTE (cliente_id, nombre_cliente, rfc_cliente, email) VALUES (10, 'Juan Morales Ramírez', 'MORAJU700125YZA', 'juan.morales49@mockemail.com');
+INSERT INTO CLIENTE (cliente_id, nombre_cliente, rfc_cliente, email) VALUES (11, 'Pedro Pérez Sánchez', 'PESAPE800901BCD', 'pedro.perez64@mockemail.com');
+INSERT INTO CLIENTE (cliente_id, nombre_cliente, rfc_cliente, email) VALUES (12, 'María García Cruz', 'GACRMA850723EFG', 'maria.garcia32@mockemail.com');
+INSERT INTO CLIENTE (cliente_id, nombre_cliente, rfc_cliente, email) VALUES (13, 'Carlos Sánchez Morales', 'SAMAJU830402HIJ', 'carlos.sanchez58@mockemail.com');
+INSERT INTO CLIENTE (cliente_id, nombre_cliente, rfc_cliente, email) VALUES (14, 'Ana Ramírez González', 'RAGOAN790614KLM', 'ana.ramirez71@mockemail.com');
+INSERT INTO CLIENTE (cliente_id, nombre_cliente, rfc_cliente, email) VALUES (15, 'Luis López Pérez', 'LOPELU850110NOP', 'luis.lopez86@mockemail.com');
+INSERT INTO CLIENTE (cliente_id, nombre_cliente, rfc_cliente, email) VALUES (16, 'Lucía Rodríguez García', 'ROGALU760429QRS', 'lucia.rodriguez93@mockemail.com');
+INSERT INTO CLIENTE (cliente_id, nombre_cliente, rfc_cliente, email) VALUES (17, 'Jorge Pérez Morales', 'PEMOJO880117TUV', 'jorge.perez57@mockemail.com');
+INSERT INTO CLIENTE (cliente_id, nombre_cliente, rfc_cliente, email) VALUES (18, 'Juan Cruz Sánchez', 'CRSAJU810315WXY', 'juan.cruz25@mockemail.com');
+INSERT INTO CLIENTE (cliente_id, nombre_cliente, rfc_cliente, email) VALUES (19, 'Marta Morales González', 'MOGOJO700918ZAB', 'marta.morales48@mockemail.com');
+INSERT INTO CLIENTE (cliente_id, nombre_cliente, rfc_cliente, email) VALUES (20, 'Ana Sánchez López', 'SALOAN750512BCD', 'ana.sanchez72@mockemail.com');
+
+Prompt factura
 insert into FACTURA (factura_id, domicilio_factura, precio_venta_kg, total, iva, viaje_id, cliente_id) values (1, 'Calle 96, Numero 76, Ciudad B', 33.68, 635.05, 101.61, 151, 11);
 insert into FACTURA (factura_id, domicilio_factura, precio_venta_kg, total, iva, viaje_id, cliente_id) values (2, 'Calle 13, Numero 55, Ciudad E', 49.69, 1423.7, 227.79, 152, 20);
 insert into FACTURA (factura_id, domicilio_factura, precio_venta_kg, total, iva, viaje_id, cliente_id) values (3, 'Calle 25, Numero 82, Ciudad E', 15.36, 1054.6, 168.74, 153, 18);
